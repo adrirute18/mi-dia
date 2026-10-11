@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mi día contigo</title>
-<meta name="theme-color" content="#FBF3F1">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mi día">
@@ -12,86 +12,107 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=DM+Sans:wght@400;500;700&display=swap">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:#FBF3F1}
-body{font-family:'DM Sans',system-ui,sans-serif;color:#2A1218;
- padding:calc(36px + env(safe-area-inset-top)) 22px calc(32px + env(safe-area-inset-bottom))}
-main{max-width:430px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
-.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;color:#C2334D}
-h1{margin:6px 0 0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:34px;line-height:1.1}
-h2{margin:0;font-size:17px;font-weight:700}
-.group{display:flex;flex-direction:column;gap:12px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-button{font-family:inherit;cursor:pointer}
-.chip{min-height:44px;padding:0 16px;border-radius:999px;font-size:15px;font-weight:500;
- background:#fff;color:#2A1218;border:1.5px solid #E9D3D0}
-.chip[aria-pressed=true]{background:#C2334D;color:#fff;border-color:#C2334D}
-.love{background:#fff;border:1.5px solid #F0DAD7;border-radius:20px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:4px}
-.love-top{display:flex;align-items:center;justify-content:space-between}
-.love-top div{display:flex;align-items:center;gap:8px}
-.pct{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:30px;color:#C2334D}
-.sub,.ends{font-size:14px;color:#6B4A4F}
-.ends{display:flex;justify-content:space-between;font-size:13px}
-input[type=range]{width:100%;height:44px;accent-color:#C2334D;margin:0}
-#loveLabel{margin-top:6px;font-size:15px;font-weight:500}
-.send{min-height:52px;border-radius:16px;border:none;background:#C2334D;color:#fff;font-size:17px;font-weight:700}
-.send:disabled{opacity:.6}
-.done{background:#2A1218;color:#FBF3F1;border-radius:16px;padding:16px 18px;font-size:15px;line-height:1.45}
-.done b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:4px}
-.again{min-height:44px;border-radius:16px;border:1.5px solid #C2334D;background:transparent;color:#C2334D;font-size:15px;font-weight:700}
-.err{color:#C2334D;font-size:14px;margin:0}
+html,body{margin:0;background:#F2F2F7}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;color:#1C1C1E;-webkit-text-size-adjust:100%}
+button,textarea{font-family:inherit}
+button{cursor:pointer}
 [hidden]{display:none!important}
+.screen{min-height:100vh;min-height:100dvh;padding:calc(20px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
+/* Portada */
+#home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.brand{font-size:13px;font-weight:600;letter-spacing:.22em;color:#8E8E93;text-transform:uppercase}
+.photo{width:min(346px,100%);aspect-ratio:346/560;border-radius:32px;object-fit:cover;object-position:33% 50%;box-shadow:0 12px 32px rgba(194,51,77,.18);background:#E3E3E8}
+.cta{width:min(346px,100%);height:64px;border:none;border-radius:18px;background:#C2334D;color:#fff;font-size:19px;font-weight:700}
+.cta:active{opacity:.85}
+/* Plan */
+#plan{max-width:430px;margin:0 auto}
+.back{display:flex;align-items:center;gap:4px;border:none;background:none;color:#C2334D;font-size:17px;padding:8px 0;min-height:44px}
+h1{margin:0 0 18px;font-size:34px;font-weight:700;letter-spacing:-.02em}
+.sec{margin:22px 0 8px 6px;font-size:13px;font-weight:600;letter-spacing:.04em;color:#6C6C70;text-transform:uppercase}
+.card{background:#fff;border-radius:18px;padding:14px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{min-height:44px;padding:0 16px;border:none;border-radius:999px;background:#F2F2F7;color:#1C1C1E;font-size:16px}
+.pill[aria-pressed=true]{background:#C2334D;color:#fff;font-weight:600}
+.seg{display:flex;background:#E3E3E8;border-radius:12px;padding:3px;gap:2px}
+.seg button{flex:1;min-height:44px;border:none;background:transparent;border-radius:10px;font-size:15px;color:#1C1C1E}
+.seg button[aria-pressed=true]{background:#fff;font-weight:600;box-shadow:0 2px 6px rgba(0,0,0,.14)}
+.love-top{display:flex;justify-content:space-between;align-items:baseline}
+.pct{font-size:44px;font-weight:700;color:#C2334D;letter-spacing:-.02em}
+.q{font-size:16px;font-weight:600}
+input[type=range]{width:100%;height:44px;margin:4px 0 0;accent-color:#C2334D}
+.ends{display:flex;justify-content:space-between;font-size:13px;color:#6C6C70}
+#loveLabel{margin-top:10px;font-size:15px;color:#3A3A3C}
+textarea{width:100%;min-height:84px;border:none;resize:none;outline:none;font-size:16px;color:#1C1C1E;background:transparent}
+textarea::placeholder{color:#8E8E93}
+.send{width:100%;height:54px;margin-top:24px;border:none;border-radius:16px;background:#C2334D;color:#fff;font-size:17px;font-weight:700}
+.send:disabled{opacity:.6}
+.err{margin:10px 6px 0;color:#C2334D;font-size:14px}
+.done{margin-top:24px;background:#1C1C1E;color:#F2F2F7;border-radius:18px;padding:18px;font-size:15px;line-height:1.5}
+.done b{display:block;font-size:20px;margin-bottom:4px}
+.again{width:100%;min-height:44px;margin-top:8px;border:none;background:none;color:#C2334D;font-size:16px;font-weight:600}
+/* Pop-up */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
+.dlg{width:280px;background:#fff;border-radius:18px;padding:22px 18px 14px;text-align:center}
+.dlg p{margin:0 0 16px;font-size:16px;line-height:1.4}
+.dlg button{width:100%;min-height:44px;border:none;border-top:1px solid #E3E3E8;background:none;color:#C2334D;font-size:17px;font-weight:600;padding-top:6px}
 </style>
 </head>
 <body>
-<main>
- <header>
-  <div class="kicker">HOLA, BERTA</div>
-  <h1>¿Qué te apetece hoy, Berta?</h1>
- </header>
 
- <section class="group"><h2>¿Qué te apetece hacer hoy?</h2><div class="chips" data-key="act"></div></section>
- <section class="group"><h2>¿Qué te apetece cenar?</h2><div class="chips" data-key="dinner"></div></section>
- <section class="group"><h2>¿Cuánto quieres gastar?</h2><div class="chips" data-key="budget"></div></section>
+<div id="home" class="screen">
+ <div class="brand">Berta &amp; Adri</div>
+ <img class="photo" src="foto.jpg" alt="Berta y Adri" width="346" height="560">
+ <button class="cta" id="go">¿Qué harán hoy los gordopapas?</button>
+</div>
 
- <section class="love">
-  <div class="love-top">
-   <div><svg width="22" height="22" viewBox="0 0 24 24" fill="#C2334D" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.7h2C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.500 16.4 12 21 12 21z"/></svg><h2>Nivel de amor</h2></div>
-   <span class="pct"><span id="pct">50</span>%</span>
-  </div>
-  <div class="sub">¿Cuánto quieres a Adri hoy?</div>
+<div id="plan" class="screen" hidden>
+ <button class="back" id="back"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="#C2334D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg>Inicio</button>
+ <h1>Plan de hoy</h1>
+
+ <div class="sec">Plan</div>
+ <div class="card"><div class="pills" data-key="act"></div></div>
+ <div class="sec">Cena</div>
+ <div class="card"><div class="pills" data-key="dinner"></div></div>
+ <div class="sec">Presupuesto</div>
+ <div class="seg" data-key="budget"></div>
+
+ <div class="sec">Nivel de amor</div>
+ <div class="card">
+  <div class="love-top"><span class="q">¿Cuánto quieres a Adri hoy?</span></div>
+  <div class="pct"><span id="pct">50</span>%</div>
   <input id="love" type="range" min="0" max="100" step="1" value="50" aria-label="Nivel de amor de hoy">
   <div class="ends"><span>Poquito</span><span>Muchísimo</span></div>
   <div id="loveLabel"></div>
- </section>
+ </div>
 
- <section class="group">
-  <button id="send" class="send">Enviar a Adri</button>
-  <p id="err" class="err" role="alert" hidden></p>
-  <div id="done" hidden>
-   <div class="done"><b>Listo, Berta</b><span id="summary"></span></div>
-  </div>
-  <button id="again" class="again" hidden>Cambiar respuestas</button>
- </section>
-</main>
+ <div class="sec">¿Algo más?</div>
+ <div class="card"><textarea id="extra" maxlength="500" placeholder="Escribe aquí una petición extra…"></textarea></div>
+
+ <button class="send" id="send">Enviar a Adri</button>
+ <p class="err" id="err" role="alert" hidden></p>
+ <div id="done" hidden><div class="done"><b>Listo, Berta</b><span id="summary"></span></div></div>
+ <button class="again" id="again" hidden>Cambiar respuestas</button>
+</div>
+
+<div id="modal" hidden>
+ <div class="dlg" role="alertdialog" aria-modal="true">
+  <p>Obviamente no vale decir me da igual listilla, elige</p>
+  <button id="ok">Vale, elijo</button>
+ </div>
+</div>
 
 <script>
-// ⚠️ Pon aquí la URL de tu Cloudflare Worker (ver README.md)
 const ENDPOINT = "https://midia-berta.adrirute18.workers.dev";
-
 const OPTIONS = {
-  act: ["Plan en casa","Pasear","Cine","Playa","Escapada","Salir con amigos"],
-  dinner: ["Pizza","Sushi","Hamburguesa","Tapas","Cocinar en casa","Sorpréndeme"],
-  budget: ["Nada","Hasta 20 €","Hasta 50 €","Sin mirar"]
+  act: ["Plan en casa","Pasear","Cine","Escapada","Amigos","Me da igual"],
+  dinner: ["Pizza","Sushi","Hamburguesa","Tapas","Cocinar en casa","Me da igual"],
+  budget: ["Nada","20 €","50 €","Sin mirar"]
 };
-const KEY = "midia-v1";
-let st = { act:null, dinner:null, budget:null, love:50, sent:false };
+const KEY = "midia-v2";
+let st = { act:null, dinner:null, budget:null, love:50, extra:"", sent:false };
 try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch(e){}
-
 const $ = s => document.querySelector(s);
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){} };
 
@@ -103,40 +124,61 @@ function loveText(v){
   return "Hoy necesito mimos extra";
 }
 function summary(){
-  const l = x => x ? x.toLowerCase() : null;
-  return "Adri ya lo sabe: hoy te apetece " + (l(st.act) || "lo que surja") +
-    ", cenar " + (l(st.dinner) || "lo que sea") +
-    ", gastar " + (l(st.budget) || "lo justo") +
+  const bud = {"Nada":"nada","20 €":"hasta 20 €","50 €":"hasta 50 €","Sin mirar":"sin mirar"}[st.budget] || "—";
+  let t = "Adri ya lo sabe: hoy te apetece " + (st.act||"—").toLowerCase() +
+    ", cenar " + (st.dinner||"—").toLowerCase() + ", gastar " + bud +
     " y tu nivel de amor por Adri es " + st.love + "%.";
+  if (st.extra.trim()) t += " Extra: " + st.extra.trim();
+  return t;
 }
-function render(){
-  document.querySelectorAll(".chips").forEach(box => {
-    const k = box.dataset.key;
-    if (!box.children.length) OPTIONS[k].forEach(o => {
+function choose(k, o){
+  if (o === "Me da igual") { $("#modal").hidden = false; return; }
+  st[k] = o; st.sent = false; save(); render();
+}
+function build(){
+  document.querySelectorAll("[data-key]").forEach(box => {
+    const k = box.dataset.key, cls = box.classList.contains("seg") ? "" : "pill";
+    OPTIONS[k].forEach(o => {
       const b = document.createElement("button");
-      b.className = "chip"; b.textContent = o; b.type = "button";
-      b.onclick = () => { st[k] = o; st.sent = false; save(); render(); };
+      b.type = "button"; b.className = cls; b.textContent = o;
+      b.onclick = () => choose(k, o);
       box.appendChild(b);
     });
+  });
+}
+function render(){
+  document.querySelectorAll("[data-key]").forEach(box => {
+    const k = box.dataset.key;
     [...box.children].forEach(b => b.setAttribute("aria-pressed", st[k] === b.textContent));
   });
-  $("#love").value = st.love;
-  $("#pct").textContent = st.love;
+  $("#love").value = st.love; $("#pct").textContent = st.love;
   $("#loveLabel").textContent = loveText(st.love);
+  if ($("#extra").value !== st.extra) $("#extra").value = st.extra;
   $("#send").hidden = st.sent;
   $("#done").hidden = $("#again").hidden = !st.sent;
   $("#summary").textContent = summary();
 }
+const show = plan => { $("#home").hidden = plan; $("#plan").hidden = !plan; window.scrollTo(0,0); };
+
+$("#go").onclick = () => show(true);
+$("#back").onclick = () => show(false);
+$("#ok").onclick = () => { $("#modal").hidden = true; };
 $("#love").addEventListener("input", e => { st.love = +e.target.value; st.sent = false; save(); render(); });
+$("#extra").addEventListener("input", e => { st.extra = e.target.value; st.sent = false; save(); });
 $("#again").onclick = () => { st.sent = false; save(); render(); };
 $("#send").onclick = async () => {
   const btn = $("#send"), err = $("#err");
-  err.hidden = true; btn.disabled = true; btn.textContent = "Enviando…";
+  err.hidden = true;
+  if (!st.act || !st.dinner || !st.budget) {
+    err.textContent = "Elige plan, cena y presupuesto antes de enviar.";
+    err.hidden = false; return;
+  }
+  btn.disabled = true; btn.textContent = "Enviando…";
   try {
     const r = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ act: st.act, dinner: st.dinner, budget: st.budget, love: st.love })
+      body: JSON.stringify({ act: st.act, dinner: st.dinner, budget: st.budget, love: st.love, extra: st.extra.trim() })
     });
     if (!r.ok) throw new Error(r.status);
     st.sent = true; save();
@@ -147,7 +189,7 @@ $("#send").onclick = async () => {
   btn.disabled = false; btn.textContent = "Enviar a Adri";
   render();
 };
-render();
+build(); render();
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 </script>
 </body>
