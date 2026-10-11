@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mi día contigo</title>
+<meta name="theme-color" content="#FBF3F1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mi día">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#FBF3F1}
+body{font-family:'DM Sans',system-ui,sans-serif;color:#2A1218;
+ padding:calc(36px + env(safe-area-inset-top)) 22px calc(32px + env(safe-area-inset-bottom))}
+main{max-width:430px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;color:#C2334D}
+h1{margin:6px 0 0;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:34px;line-height:1.1}
+h2{margin:0;font-size:17px;font-weight:700}
+.group{display:flex;flex-direction:column;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+button{font-family:inherit;cursor:pointer}
+.chip{min-height:44px;padding:0 16px;border-radius:999px;font-size:15px;font-weight:500;
+ background:#fff;color:#2A1218;border:1.5px solid #E9D3D0}
+.chip[aria-pressed=true]{background:#C2334D;color:#fff;border-color:#C2334D}
+.love{background:#fff;border:1.5px solid #F0DAD7;border-radius:20px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:4px}
+.love-top{display:flex;align-items:center;justify-content:space-between}
+.love-top div{display:flex;align-items:center;gap:8px}
+.pct{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:30px;color:#C2334D}
+.sub,.ends{font-size:14px;color:#6B4A4F}
+.ends{display:flex;justify-content:space-between;font-size:13px}
+input[type=range]{width:100%;height:44px;accent-color:#C2334D;margin:0}
+#loveLabel{margin-top:6px;font-size:15px;font-weight:500}
+.send{min-height:52px;border-radius:16px;border:none;background:#C2334D;color:#fff;font-size:17px;font-weight:700}
+.send:disabled{opacity:.6}
+.done{background:#2A1218;color:#FBF3F1;border-radius:16px;padding:16px 18px;font-size:15px;line-height:1.45}
+.done b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin-bottom:4px}
+.again{min-height:44px;border-radius:16px;border:1.5px solid #C2334D;background:transparent;color:#C2334D;font-size:15px;font-weight:700}
+.err{color:#C2334D;font-size:14px;margin:0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+ <header>
+  <div class="kicker">HOLA, BERTA</div>
+  <h1>¿Qué te apetece hoy, Berta?</h1>
+ </header>
+
+ <section class="group"><h2>¿Qué te apetece hacer hoy?</h2><div class="chips" data-key="act"></div></section>
+ <section class="group"><h2>¿Qué te apetece cenar?</h2><div class="chips" data-key="dinner"></div></section>
+ <section class="group"><h2>¿Cuánto quieres gastar?</h2><div class="chips" data-key="budget"></div></section>
+
+ <section class="love">
+  <div class="love-top">
+   <div><svg width="22" height="22" viewBox="0 0 24 24" fill="#C2334D" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.6 1.1 4.6 2.7h2C14 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.500 16.4 12 21 12 21z"/></svg><h2>Nivel de amor</h2></div>
+   <span class="pct"><span id="pct">50</span>%</span>
+  </div>
+  <div class="sub">¿Cuánto quieres a Adri hoy?</div>
+  <input id="love" type="range" min="0" max="100" step="1" value="50" aria-label="Nivel de amor de hoy">
+  <div class="ends"><span>Poquito</span><span>Muchísimo</span></div>
+  <div id="loveLabel"></div>
+ </section>
+
+ <section class="group">
+  <button id="send" class="send">Enviar a Adri</button>
+  <p id="err" class="err" role="alert" hidden></p>
+  <div id="done" hidden>
+   <div class="done"><b>Listo, Berta</b><span id="summary"></span></div>
+  </div>
+  <button id="again" class="again" hidden>Cambiar respuestas</button>
+ </section>
+</main>
+
+<script>
+// ⚠️ Pon aquí la URL de tu Cloudflare Worker (ver README.md)
+const ENDPOINT = "https://midia-berta.adrirute18.workers.dev";
+
+const OPTIONS = {
+  act: ["Plan en casa","Pasear","Cine","Playa","Escapada","Salir con amigos"],
+  dinner: ["Pizza","Sushi","Hamburguesa","Tapas","Cocinar en casa","Sorpréndeme"],
+  budget: ["Nada","Hasta 20 €","Hasta 50 €","Sin mirar"]
+};
+const KEY = "midia-v1";
+let st = { act:null, dinner:null, budget:null, love:50, sent:false };
+try { Object.assign(st, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch(e){}
+
+const $ = s => document.querySelector(s);
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e){} };
+
+function loveText(v){
+  if (v > 90) return "Nivel máximo, no cabe más";
+  if (v > 70) return "Hoy estoy muy enamorada";
+  if (v > 45) return "Te quiero un montón";
+  if (v > 20) return "Te quiero, pero el café va primero";
+  return "Hoy necesito mimos extra";
+}
+function summary(){
+  const l = x => x ? x.toLowerCase() : null;
+  return "Adri ya lo sabe: hoy te apetece " + (l(st.act) || "lo que surja") +
+    ", cenar " + (l(st.dinner) || "lo que sea") +
+    ", gastar " + (l(st.budget) || "lo justo") +
+    " y tu nivel de amor por Adri es " + st.love + "%.";
+}
+function render(){
+  document.querySelectorAll(".chips").forEach(box => {
+    const k = box.dataset.key;
+    if (!box.children.length) OPTIONS[k].forEach(o => {
+      const b = document.createElement("button");
+      b.className = "chip"; b.textContent = o; b.type = "button";
+      b.onclick = () => { st[k] = o; st.sent = false; save(); render(); };
+      box.appendChild(b);
+    });
+    [...box.children].forEach(b => b.setAttribute("aria-pressed", st[k] === b.textContent));
+  });
+  $("#love").value = st.love;
+  $("#pct").textContent = st.love;
+  $("#loveLabel").textContent = loveText(st.love);
+  $("#send").hidden = st.sent;
+  $("#done").hidden = $("#again").hidden = !st.sent;
+  $("#summary").textContent = summary();
+}
+$("#love").addEventListener("input", e => { st.love = +e.target.value; st.sent = false; save(); render(); });
+$("#again").onclick = () => { st.sent = false; save(); render(); };
+$("#send").onclick = async () => {
+  const btn = $("#send"), err = $("#err");
+  err.hidden = true; btn.disabled = true; btn.textContent = "Enviando…";
+  try {
+    const r = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ act: st.act, dinner: st.dinner, budget: st.budget, love: st.love })
+    });
+    if (!r.ok) throw new Error(r.status);
+    st.sent = true; save();
+  } catch (e) {
+    err.textContent = "No se pudo enviar. Revisa la conexión y prueba otra vez.";
+    err.hidden = false;
+  }
+  btn.disabled = false; btn.textContent = "Enviar a Adri";
+  render();
+};
+render();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>
