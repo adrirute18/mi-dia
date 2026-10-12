@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mi día contigo</title>
-<meta name="theme-color" content="#F2F2F7">
+<meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Mi día">
@@ -12,89 +13,109 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
 <style>
-:root{--bg:#F2F2F7;--card:#fff;--ink:#1C1C1E;--mute:#6C6C70;--chip:#F2F2F7;--seg:#E3E3E8;--segon:#fff;--sum:#1C1C1E;--sumink:#F2F2F7;--accent:#C2334D;--btn:#C2334D;color-scheme:light dark}
-@media(prefers-color-scheme:dark){:root{--bg:#000;--card:#1C1C1E;--ink:#F2F2F7;--mute:#98989F;--chip:#2C2C2E;--seg:#1C1C1E;--segon:#636366;--sum:#2C2C2E;--accent:#EF5A74}}
+:root{--bg:#F2F2F7;--card:#FFFFFF;--ink:#1C1C1E;--mute:#6C6C70;--chip:#F2F2F7;--seg:#E3E3E8;--segon:#FFFFFF;--sum:#1C1C1E;--sumink:#F2F2F7;--cat:#1C1C1E;--accent:#C2334D;--btn:#C2334D;color-scheme:light dark}
+@media (prefers-color-scheme: dark){:root{--bg:#000000;--card:#1C1C1E;--ink:#F2F2F7;--mute:#98989F;--chip:#2C2C2E;--seg:#1C1C1E;--segon:#636366;--sum:#2C2C2E;--sumink:#F2F2F7;--cat:#D1D1D6;--accent:#EF5A74}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg)}
-body{font-family:-apple-system,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:var(--ink);-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 button,textarea,input{font-family:inherit}button{cursor:pointer}[hidden]{display:none!important}
-.screen{min-height:100vh;min-height:100dvh;padding:calc(20px + env(safe-area-inset-top)) 20px calc(28px + env(safe-area-inset-bottom))}
-#home{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
-.brand{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
-#greet{margin:0;font-size:27px;font-weight:700}
-#phrase{margin:0;max-width:300px;font-size:15px;color:var(--mute)}
-.pillt{display:inline-flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--accent)}
+textarea,input[type=text]{outline:none}
+textarea::placeholder,input::placeholder{color:#8E8E93}
+.screen{min-height:100vh;min-height:100dvh;margin:0 auto;display:flex;flex-direction:column}
+
+/* Portada */
+#home{max-width:390px;padding:calc(40px + env(safe-area-inset-top)) 22px calc(40px + env(safe-area-inset-bottom));justify-content:center;gap:22px}
+.head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.brand{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--mute)}
+#greet{margin:0;font-size:27px;font-weight:700;letter-spacing:-.02em}
+#phrase{margin:0;max-width:300px;font-size:15px;line-height:1.4;color:var(--mute)}
+.pillt{margin-top:4px;display:flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--accent)}
 #anni{font-size:13px;color:var(--mute)}
-.photo{width:min(346px,100%);aspect-ratio:346/560;border-radius:32px;overflow:hidden;box-shadow:0 12px 32px rgba(194,51,77,.18);background:var(--seg);margin-top:4px}
-.photo img{width:100%;height:100%;object-fit:cover;object-position:33% 50%;display:block;animation:zoom 14s ease-in-out infinite alternate}
-.ctaw{position:relative;width:min(346px,100%);padding-top:72px}
-.ctaw .cat{position:absolute;top:0;right:22px}
-.cta{width:100%;height:64px;border:none;border-radius:18px;background:var(--btn);color:#fff;font-size:19px;font-weight:700;box-shadow:0 8px 20px rgba(194,51,77,.32);animation:pulse 2.6s ease-in-out infinite}
+.photo{width:min(346px,100%);aspect-ratio:346/560;align-self:center;overflow:hidden;border-radius:32px;box-shadow:0 12px 32px rgba(194,51,77,.18);background:var(--seg)}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;animation:zoom 14s ease-in-out infinite alternate}
+.ctaw{position:relative;padding-top:72px}
+.ctaw .cat{position:absolute;right:22px;top:0;overflow:visible}
+.cta{width:100%;min-height:64px;border:none;border-radius:18px;background:var(--btn);color:#fff;font-size:19px;font-weight:700;padding:0 20px;box-shadow:0 8px 20px rgba(194,51,77,.32);animation:pulse 2.6s ease-in-out infinite}
 .cb{fill:#111113;stroke:#8E8E93;stroke-opacity:.45;stroke-width:1}.cw{fill:#FAFAFA}
 .tail{transform-box:fill-box;transform-origin:0% 100%;animation:tail 2.2s ease-in-out infinite}
 .eye{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.5s infinite}
-#plan{max-width:430px;margin:0 auto;animation:slideIn .35s ease-out}
-.back{display:flex;align-items:center;gap:4px;border:none;background:none;color:var(--accent);font-size:17px;padding:8px 0;min-height:44px}
-h1{margin:0 0 14px;font-size:34px;font-weight:700;letter-spacing:-.02em}
-.sec{margin:20px 0 8px 6px;font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--mute);text-transform:uppercase}
-.card{background:var(--card);border-radius:18px;padding:12px}
+
+/* Plan de hoy */
+#plan{max-width:430px;padding:calc(20px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));gap:20px;animation:slideIn .35s ease-out}
+.top{display:flex;flex-direction:column;gap:4px}
+.back{align-self:flex-start;min-height:44px;padding:0;border:none;background:transparent;color:var(--accent);font-size:17px;display:flex;align-items:center;gap:2px}
+h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em}
+.grp{display:flex;flex-direction:column;gap:8px}
 .fd{animation:fadeDown .3s ease-out}
+.sec{padding:0 6px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--mute)}
+.card{background:var(--card);border-radius:18px;padding:12px}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
-.pill{min-height:44px;padding:0 16px;border:none;border-radius:999px;background:var(--chip);color:var(--ink);font-size:16px}
-.pill[aria-pressed=true]{background:#C2334D;color:#fff;font-weight:700}
-.pill.pop{animation:pop .28s}
-.seg{display:flex;background:var(--seg);border-radius:10px;padding:3px;gap:2px}
-.seg button{flex:1;min-height:40px;border:none;background:transparent;border-radius:8px;font-size:15px;color:var(--ink)}
-.seg button[aria-pressed=true]{background:var(--segon);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.lt{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.q{font-size:16px;font-weight:600}
+.pill{min-height:40px;padding:0 15px;border:none;border-radius:999px;background:var(--chip);color:var(--ink);font-size:15px;font-weight:500}
+.pill[aria-pressed=true]{background:#C2334D;color:#fff;font-weight:600}
+.pill.pop{animation:pop .28s ease-out}
+.inp{width:100%;min-height:50px;border:none;border-radius:18px;background:var(--card);padding:0 16px;font-size:16px;color:var(--ink)}
+.seg{display:flex;background:var(--seg);border-radius:10px;padding:2px;gap:2px}
+.seg button{flex:1;min-height:40px;border:none;border-radius:8px;background:transparent;font-size:14px;font-weight:500;color:var(--ink)}
+.seg button[aria-pressed=true]{background:var(--segon);box-shadow:0 1px 3px rgba(0,0,0,.2);font-weight:700}
+.love{position:relative;background:var(--card);border-radius:18px;padding:14px 16px 12px}
+.lt{display:flex;align-items:center;justify-content:space-between}
+.q{font-size:15px}
 .rt{display:flex;align-items:center;gap:6px}
-.hb{position:relative;width:46px;height:46px;display:grid;place-items:center}
-.hb .h{animation:beat 1.2s ease-in-out infinite}
-.rise{position:absolute;left:16px;bottom:8px;opacity:0;animation:rise 1.8s infinite}
-.pct{font-size:30px;font-weight:700;color:var(--accent)}
-input[type=range]{width:100%;height:44px;margin:4px 0 0;accent-color:#C2334D}
-.ends{display:flex;justify-content:space-between;font-size:13px;color:var(--mute)}
-#loveLabel{margin-top:8px;font-size:15px}
-textarea,.inp{width:100%;border:none;outline:none;resize:none;font-size:16px;color:var(--ink);background:transparent}
-textarea::placeholder,.inp::placeholder{color:var(--mute)}
-.send{width:100%;height:54px;margin-top:22px;border:none;border-radius:16px;background:var(--btn);color:#fff;font-size:17px;font-weight:700}
+.hb{width:46px;height:46px;display:flex;align-items:center;justify-content:center}
+.pct{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-width:78px;text-align:right}
+input[type=range]{width:100%;height:40px;accent-color:#C2334D;margin:0}
+.ends{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+#loveLabel{margin-top:6px;font-size:15px;font-weight:500}
+/* Corazoncitos (>90): solo en una columna de 46x46 sobre el corazón grande */
+#risers{position:absolute;right:100px;top:14px;width:46px;height:46px;pointer-events:none;overflow:visible}
+#risers svg{position:absolute;top:14px;width:14px;height:14px;opacity:0;animation:rise 1.8s ease-out infinite}
+textarea{width:100%;border:none;border-radius:18px;background:var(--card);padding:14px 16px;font-size:16px;line-height:1.4;color:var(--ink);resize:none}
+.foot{display:flex;flex-direction:column;gap:10px;margin-top:auto}
+.send{min-height:54px;border:none;border-radius:16px;background:var(--btn);color:#fff;font-size:17px;font-weight:700}
 .send:disabled{opacity:.6}
-.err{margin:10px 6px 0;color:var(--accent);font-size:14px}
-.done{margin-top:22px;background:var(--sum);color:var(--sumink);border-radius:18px;padding:18px;font-size:15px;line-height:1.5;animation:bounceIn .5s}
-.done b{display:block;font-size:20px;margin-bottom:4px}
-.again{width:100%;min-height:44px;margin-top:8px;border:none;background:none;color:var(--accent);font-size:16px;font-weight:600}
+.err{margin:0 6px;color:var(--accent);font-size:14px}
+.done{background:var(--sum);color:var(--sumink);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.45;animation:bounceIn .5s ease-out}
+.done b{display:block;font-size:18px;font-weight:700;margin-bottom:4px}
+.again{min-height:44px;border:none;border-radius:14px;background:transparent;color:var(--accent);font-size:16px;font-weight:600}
+
+/* Pop-up "Me da igual" */
 #modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
-.dlg{width:280px;background:var(--card);border-radius:18px;padding:18px 18px 10px;text-align:center;animation:bounceIn .35s}
-.dlg .cat{animation:wobble 2.4s ease-in-out infinite}
-.dlg p{margin:6px 0 14px;font-size:16px;line-height:1.4}
-.dlg button{width:100%;min-height:44px;border:none;background:none;font-size:17px;font-weight:600;color:var(--ink)}
-.dlg .sc{color:var(--accent);font-size:15px;font-weight:500}
-.dlg .rl{font-size:24px;font-weight:700;color:var(--accent);margin:14px 0 20px;min-height:32px}
+.dlg{width:280px;background:var(--card);border-radius:18px;padding:18px 20px 16px;text-align:center;display:flex;flex-direction:column;gap:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);animation:bounceIn .35s ease-out}
+.dlg .cat{align-self:center;overflow:visible;animation:wobble 2.4s ease-in-out infinite}
+.dlg p{margin:0;font-size:17px;font-weight:600;line-height:1.35}
+.dlg .ok{min-height:44px;border:none;border-radius:12px;background:var(--btn);color:#fff;font-size:17px;font-weight:700}
+.dlg .fate{min-height:40px;border:none;background:transparent;color:var(--accent);font-size:15px;font-weight:600}
+.dlg .lbl{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--mute)}
+.dlg .rl{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-height:44px}
+
+/* Lluvia de corazones al enviar */
 #rain{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:20}
-#rain svg{position:absolute;top:0;animation:fall linear forwards}
+#rain svg{position:absolute;top:0;animation-name:fall;animation-timing-function:ease-in;animation-fill-mode:both}
+
+@keyframes slideIn{from{transform:translateX(36px);opacity:0}to{transform:none;opacity:1}}
+@keyframes zoom{from{transform:scale(1)}to{transform:scale(1.09)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @keyframes tail{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(16deg)}}
-@keyframes blink{0%,94%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
-@keyframes zoom{to{transform:scale(1.09)}}
-@keyframes pulse{50%{transform:scale(1.035)}}
-@keyframes slideIn{from{opacity:0;transform:translateX(36px)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}}
-@keyframes pop{50%{transform:scale(1.12)}}
-@keyframes bounceIn{0%{transform:scale(.7);opacity:0}60%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
-@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.22)}60%{transform:scale(.96)}}
-@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}30%{opacity:1}100%{transform:translateY(-48px) scale(1);opacity:0}}
-@keyframes fall{from{transform:translateY(-60px) rotate(0);opacity:0}15%{opacity:1}to{transform:translateY(1240px) rotate(40deg);opacity:0}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
+@keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.22)}60%{transform:scale(0.96)}}
+@keyframes fall{0%{transform:translateY(-60px) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(1240px) rotate(40deg);opacity:0}}
+@keyframes bounceIn{0%{transform:scale(0.7);opacity:0}60%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
+@keyframes rise{0%{transform:translateY(0) scale(0.6);opacity:0}20%{opacity:1}100%{transform:translateY(-48px) scale(1);opacity:0}}
 @keyframes wobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}#rain,#risers{display:none}}
 </style>
 </head>
 <body>
 <div id="home" class="screen">
- <div class="brand">Berta &amp; Adri</div>
- <h2 id="greet"></h2>
- <p id="phrase"></p>
- <div class="pillt"><svg width="13" height="13" viewBox="0 0 24 24" fill="#C2334D"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg><span id="tog"></span></div>
- <div id="anni"></div>
+ <div class="head">
+  <div class="brand">BERTA &amp; ADRI</div>
+  <h2 id="greet"></h2>
+  <p id="phrase"></p>
+  <div class="pillt"><svg width="14" height="14" viewBox="0 0 24 24" fill="#C2334D" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span id="tog"></span></div>
+  <div id="anni"></div>
+ </div>
  <div class="photo"><img src="foto.jpg" alt="Berta y Adri" width="346" height="560"></div>
  <div class="ctaw">
   <svg class="cat" width="86" height="72" viewBox="0 0 100 84" aria-hidden="true"><path class="tail" d="M72 80 C96 82 98 58 88 50" fill="none" stroke="#111113" stroke-width="7" stroke-linecap="round"/><path class="cb" d="M22 84 C14 60 26 42 50 42 C74 42 86 60 78 84 Z"/><path class="cw" d="M36 84 C32 66 40 52 50 52 C60 52 68 66 64 84 Z"/><ellipse class="cb" cx="61" cy="80" rx="4.5" ry="3"/><polygon class="cb" points="29,22 30,3 45,14"/><polygon class="cb" points="55,14 70,3 71,22"/><ellipse class="cb" cx="50" cy="30" rx="22" ry="19"/><ellipse class="cw" cx="50" cy="42" rx="15" ry="10"/><polygon class="cw" points="47,12 53,12 56,36 44,36"/><g class="eye"><circle cx="40" cy="29" r="5.6" fill="#F2C94C"/><circle cx="40" cy="29" r="3.3" fill="#111113"/><circle cx="41.3" cy="27.6" r="1.1" fill="#fff"/></g><g class="eye"><circle cx="60" cy="29" r="5.6" fill="#F2C94C"/><circle cx="60" cy="29" r="3.3" fill="#111113"/><circle cx="61.3" cy="27.6" r="1.1" fill="#fff"/></g><path d="M41 41 C43 38 47 39 50 41 C53 39 57 38 59 41 C58 46 54 48 50 47 C46 48 42 46 41 41 Z" fill="#111113"/></svg>
@@ -103,25 +124,32 @@ textarea::placeholder,.inp::placeholder{color:var(--mute)}
 </div>
 
 <div id="plan" class="screen" hidden>
- <button class="back" id="back"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 2 10l8 8"/></svg>Inicio</button>
- <h1>Plan de hoy</h1>
- <div class="sec">Plan</div><div class="card"><div class="pills" id="pActs"></div></div>
- <div id="subBox"></div>
- <div class="sec">Presupuesto</div><div class="seg" id="pBud"></div>
- <div class="sec">Nivel de amor</div>
- <div class="card">
-  <div class="lt"><span class="q">¿Cuánto quieres a Adri hoy?</span>
-   <div class="rt"><div class="hb" id="hb"></div><span class="pct"><span id="pct">50</span>%</span></div></div>
-  <input id="love" type="range" min="0" max="100" step="1" value="50" aria-label="Nivel de amor de hoy">
-  <div class="ends"><span>Poquito</span><span>Muchísimo</span></div>
-  <div id="loveLabel"></div>
+ <div class="top">
+  <button class="back" id="back"><svg width="12" height="20" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2L2 10l8 8"/></svg>Inicio</button>
+  <h1>Plan de hoy</h1>
  </div>
- <div class="sec">¿Algo más?</div>
- <div class="card"><textarea id="extra" rows="3" maxlength="500" placeholder="Escribe aquí una petición extra…"></textarea></div>
- <button class="send" id="send">Enviar a Adri</button>
- <p class="err" id="err" role="alert" hidden></p>
- <div id="done" hidden><div class="done"><b>Listo, Berta</b><span id="summary"></span></div></div>
- <button class="again" id="again" hidden>Cambiar respuestas</button>
+ <div class="grp"><div class="sec">PLAN</div><div class="card"><div class="pills" id="pActs"></div></div></div>
+ <div id="subBox" hidden></div>
+ <div id="fieldBox" hidden></div>
+ <div class="grp"><div class="sec">PRESUPUESTO</div><div class="seg" id="pBud"></div></div>
+ <div class="grp"><div class="sec">NIVEL DE AMOR</div>
+  <div class="love">
+   <div class="lt"><div class="q">¿Cuánto quieres a Adri hoy?</div>
+    <div class="rt"><div class="hb" id="hb"></div><div class="pct"><span id="pct">50</span>%</div></div></div>
+   <input id="love" type="range" min="0" max="100" step="1" value="50" aria-label="Nivel de amor de hoy">
+   <div class="ends"><span>Poquito</span><span>Muchísimo</span></div>
+   <div id="loveLabel"></div>
+   <div id="risers" hidden></div>
+  </div>
+ </div>
+ <div class="grp"><div class="sec">¿ALGO MÁS?</div>
+  <textarea id="extra" rows="3" maxlength="500" placeholder="Escribe aquí una petición extra…"></textarea></div>
+ <div class="foot">
+  <button class="send" id="send">Enviar a Adri</button>
+  <p class="err" id="err" role="alert" hidden></p>
+  <div class="done" id="done" hidden><b>Listo, Berta</b><span id="summary"></span></div>
+  <button class="again" id="again" hidden>Cambiar respuestas</button>
+ </div>
 </div>
 
 <div id="modal" hidden><div class="dlg" role="alertdialog" aria-modal="true" id="dlg"></div></div>
@@ -129,88 +157,128 @@ textarea::placeholder,.inp::placeholder{color:var(--mute)}
 
 <script>
 const ENDPOINT="https://midia-berta.adrirute18.workers.dev";
+// FECHA DE INICIO DE LA RELACIÓN: AAAA-MM-DD
 const START_DATE="2020-02-07";
-const ACTS=["Almuerzo","Cena","Cine","Plan en casa","Pasear","Escapada","Amigos","Me da igual"];
-const POOL=ACTS.slice(0,7);
-const SUB={Almuerzo:["¿QUÉ TE APETECE COMER?",["Pizza","Sushi","Hamburguesa","Tapas","Me da igual"]],
-Cena:["¿QUÉ TE APETECE COMER?",["Pizza","Sushi","Hamburguesa","Tapas","Me da igual"]],
-Cine:["¿DE QUÉ GÉNERO?",["Comedia","Romántica","Acción","Terror","Animación"]],
-"Plan en casa":["¿QUÉ HACEMOS EN CASA?",["Peli en casa","Cena en casa fitness","Ver nuestra serie","Merendar juntos"]],
-Pasear:["¿POR DÓNDE?",["Por la ciudad","Junto al mar","Naturaleza","Con helado"]],
-Escapada:["¿QUÉ TIPO DE ESCAPADA?",["Mar","Montaña","Ciudad","Pueblo"]],
-Amigos:["¿QUÉ PLAN?",["Tomar algo","Cenar","En casa","Salir de fiesta"]]};
-const FR=["¿ALGÚN RESTAURANTE EN CONCRETO?","Nombre del restaurante","restaurante"];
-const FIELD={Almuerzo:FR,Cena:FR,Cine:["¿QUÉ PELÍCULA QUIERES VER?","Título de la película","película"],
-Pasear:["¿ALGÚN SITIO EN CONCRETO?","Lugar o ruta","sitio"],Escapada:["¿ALGÚN DESTINO EN MENTE?","Destino","destino"],
-Amigos:["¿CON QUIÉN?","Con quién quedamos","con"]};
-const CASA={"Peli en casa":["IDEA DE PELI","¿Qué peli te apetece ver?","peli"],"Cena en casa fitness":["IDEA DE CENA","¿Qué cenamos?","cena"],
-"Ver nuestra serie":["¿QUÉ SERIE O CAPÍTULO?","Serie o capítulo","serie"],"Merendar juntos":["IDEA DE MERIENDA","¿Qué merendamos?","merienda"]};
-const BUD=["Nada","20 €","50 €","Sin mirar"], BUDT={"Nada":"nada","20 €":"hasta 20 €","50 €":"hasta 50 €","Sin mirar":"sin mirar"};
 const PHRASES=["Hoy toca ser felices, lo demás ya se verá.","Contigo hasta el lunes se ve bonito.","Eres mi plan favorito de todos los planes.","Hoy mando yo menos: tú eliges y yo disfruto.","Que el día sea corto y los mimos largos.","Si hoy fuera un gato, estaría ronroneando por ti.","Tú eliges, yo me encargo de que salga genial.","Cada día contigo es de los buenos.","Hoy el plan es sencillo: pasarlo bien juntos.","Un día sin ti es como un gato sin siesta: no funciona.","Eres mi parte favorita del día.","Hoy tengo ganas de ti y de lo que quieras hacer."];
+const FOOD=["Pizza","Sushi","Hamburguesa","Tapas","Me da igual"];
+const REST={label:"¿ALGÚN RESTAURANTE EN CONCRETO?",ph:"Nombre del restaurante",short:"restaurante"};
+const HOME={
+  "Peli en casa":{label:"IDEA DE PELI",ph:"¿Qué peli te apetece ver?",short:"peli"},
+  "Cena en casa fitness":{label:"IDEA DE CENA",ph:"¿Qué cenamos?",short:"cena"},
+  "Ver nuestra serie":{label:"¿QUÉ SERIE O CAPÍTULO?",ph:"Serie o capítulo",short:"serie"},
+  "Merendar juntos":{label:"IDEA DE MERIENDA",ph:"¿Qué merendamos?",short:"merienda"}
+};
+const CFG={
+  "Almuerzo":{subTitle:"¿QUÉ TE APETECE COMER?",subs:FOOD,field:()=>REST},
+  "Cena":{subTitle:"¿QUÉ TE APETECE COMER?",subs:FOOD,field:()=>REST},
+  "Cine":{subTitle:"¿DE QUÉ GÉNERO?",subs:["Comedia","Romántica","Acción","Terror","Animación"],
+    field:()=>({label:"¿QUÉ PELÍCULA QUIERES VER?",ph:"Título de la película",short:"película"})},
+  "Plan en casa":{subTitle:"¿QUÉ HACEMOS EN CASA?",subs:Object.keys(HOME),field:sub=>HOME[sub]},
+  "Pasear":{subTitle:"¿POR DÓNDE?",subs:["Por la ciudad","Junto al mar","Naturaleza","Con helado"],
+    field:()=>({label:"¿ALGÚN SITIO EN CONCRETO?",ph:"Lugar o ruta",short:"sitio"})},
+  "Escapada":{subTitle:"¿QUÉ TIPO DE ESCAPADA?",subs:["Mar","Montaña","Ciudad","Pueblo"],
+    field:()=>({label:"¿ALGÚN DESTINO EN MENTE?",ph:"Destino",short:"destino"})},
+  "Amigos":{subTitle:"¿QUÉ PLAN?",subs:["Tomar algo","Cenar","En casa","Salir de fiesta"],
+    field:()=>({label:"¿CON QUIÉN?",ph:"Con quién quedamos",short:"con"})}
+};
+const ROULETTE=["Almuerzo","Cena","Cine","Plan en casa","Pasear","Escapada","Amigos"];
+const ACTS=[...ROULETTE,"Me da igual"];
+const BUD=["Nada","20 €","50 €","Sin mirar"];
 const KEY="midia-v4";
+
 let st={act:null,sub:null,txt:"",budget:null,love:50,extra:"",sent:false};
 try{Object.assign(st,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
-const $=s=>document.querySelector(s), save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
-const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
-const HEART='M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z';
-const heart=(s,c,x="")=>`<svg ${x} width="${s}" height="${s}" viewBox="0 0 24 24" fill="${c}"><path d="${HEART}"/></svg>`;
+// Limpia valores guardados que ya no sean válidos ("Me da igual" nunca se guarda ni se envía)
+if(!CFG[st.act])st.act=null;
+if(!st.act||!CFG[st.act].subs.includes(st.sub)||st.sub==="Me da igual")st.sub=null;
+if(!BUD.includes(st.budget))st.budget=null;
+st.love=Math.min(100,Math.max(0,Number(st.love)||0));
+st.txt=String(st.txt||"");st.extra=String(st.extra||"");
+
+const $=s=>document.querySelector(s);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+const HEART='<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>';
+const heart=(fill,style)=>`<svg viewBox="0 0 24 24" fill="${fill}" aria-hidden="true" style="${style}">${HEART}</svg>`;
 const CATFACE='<svg class="cat" width="88" height="88" viewBox="0 0 100 100" aria-hidden="true"><polygon class="cb" points="16,42 18,6 42,22"/><polygon class="cb" points="84,42 82,6 58,22"/><ellipse class="cb" cx="50" cy="54" rx="35" ry="31"/><ellipse class="cw" cx="50" cy="68" rx="23" ry="16"/><polygon class="cw" points="46,22 54,22 59,58 41,58"/><circle cx="33" cy="50" r="8.5" fill="#F2C94C"/><circle cx="67" cy="50" r="8.5" fill="#F2C94C"/><circle cx="33" cy="52" r="5" fill="#111113"/><circle cx="67" cy="52" r="5" fill="#111113"/><rect x="23" y="38" width="20" height="9" fill="#111113"/><rect x="57" y="38" width="20" height="9" fill="#111113"/><path d="M38 63 C42 59 47 60 50 63 C53 60 58 59 62 63 C60 71 55 73 50 71 C45 73 40 71 38 63 Z" fill="#111113"/><path d="M4 60 L24 62 M4 70 L24 68 M96 60 L76 62 M96 70 L76 68" stroke="#8E8E93" stroke-width="1.4" stroke-linecap="round" fill="none"/></svg>';
 
 /* Portada */
-function home(){
-  const n=new Date(),h=n.getHours();
-  $("#greet").textContent=(h>=6&&h<13?"Buenos días":h>=13&&h<20?"Buenas tardes":"Buenas noches")+", Berta";
-  const day=Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5);
-  $("#phrase").textContent=PHRASES[day%PHRASES.length];
-  const [sy,sm,sd]=START_DATE.split("-").map(Number), t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
-  let y=t.getFullYear()-sy,m=t.getMonth()+1-sm,d=t.getDate()-sd;
-  if(d<0){m--;d+=new Date(t.getFullYear(),t.getMonth(),0).getDate()}
+function together(now){
+  const s=new Date(START_DATE+"T00:00:00");
+  let y=now.getFullYear()-s.getFullYear(),m=now.getMonth()-s.getMonth(),d=now.getDate()-s.getDate();
+  if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}
   if(m<0){y--;m+=12}
-  const p=[];if(y)p.push(y+(y==1?" año":" años"));if(m)p.push(m+(m==1?" mes":" meses"));if(d)p.push(d+(d==1?" día":" días"));
-  const j=p.length>1?p.slice(0,-1).join(", ")+" y "+p[p.length-1]:(p[0]||"0 días");
-  $("#tog").textContent=j+" juntos";
-  let a=new Date(t.getFullYear(),sm-1,sd);if(a<t)a=new Date(t.getFullYear()+1,sm-1,sd);
-  const dl=Math.round((a-t)/864e5),yrs=a.getFullYear()-sy;
-  $("#anni").textContent=dl==0?"¡Hoy es vuestro aniversario! "+yrs+" años":(dl==1?"Falta 1 día":"Faltan "+dl+" días")+" para vuestro "+yrs+".º aniversario";
+  const p=[];
+  if(y>0)p.push(y+(y===1?" año":" años"));
+  if(m>0)p.push(m+(m===1?" mes":" meses"));
+  if(d>0)p.push(d+(d===1?" día":" días"));
+  if(!p.length)return "Recién empezamos";
+  return (p.length>1?p.slice(0,-1).join(", ")+" y "+p[p.length-1]:p[0])+" juntos";
+}
+function anniv(now){
+  const s=new Date(START_DATE+"T00:00:00"),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  let next=new Date(now.getFullYear(),s.getMonth(),s.getDate());
+  if(next<today)next=new Date(now.getFullYear()+1,s.getMonth(),s.getDate());
+  const diff=Math.round((next-today)/864e5),n=next.getFullYear()-s.getFullYear();
+  if(diff===0)return "¡Hoy es vuestro aniversario! "+n+" años";
+  return (diff===1?"Falta 1 día":"Faltan "+diff+" días")+" para vuestro "+n+".º aniversario";
+}
+function home(){
+  const now=new Date(),h=now.getHours();
+  $("#greet").textContent=(h<6||h>=20?"Buenas noches":h<13?"Buenos días":"Buenas tardes")+", Berta";
+  $("#phrase").textContent=PHRASES[Math.floor(now.getTime()/864e5)%PHRASES.length];
+  $("#tog").textContent=together(now);
+  $("#anni").textContent=anniv(now);
 }
 
 /* Plan */
-const pills=(list,cur)=>list.map(o=>`<button type="button" class="pill" data-o="${o}" aria-pressed="${cur===o}">${o}</button>`).join("");
-function fieldInfo(){return st.act==="Plan en casa"?(st.sub&&CASA[st.sub]):(st.sub&&FIELD[st.act])}
+const pills=(list,cur)=>list.map(o=>`<button type="button" class="pill" data-o="${esc(o)}" aria-pressed="${cur===o}">${esc(o)}</button>`).join("");
+const fieldInfo=()=>st.act&&st.sub?CFG[st.act].field(st.sub):null;
 function renderPlan(fade,pop){
   $("#pActs").innerHTML=pills(ACTS,st.act);
-  $("#pBud").innerHTML=BUD.map(o=>`<button type="button" data-o="${o}" aria-pressed="${st.budget===o}">${o}</button>`).join("");
-  let h="";
-  if(st.act&&SUB[st.act]){
-    const [lab,opts]=SUB[st.act],f=fieldInfo();
-    h=`<div class="${fade?"fd":""}"><div class="sec">${lab}</div><div class="card"><div class="pills" id="pSub">${pills(opts,st.sub)}</div></div>`+
-    (f?`<div class="sec">${f[0]}</div><div class="card"><input class="inp" id="txt" maxlength="80" placeholder="${f[1]}"></div>`:"")+`</div>`;
+  $("#pBud").innerHTML=BUD.map(o=>`<button type="button" data-o="${esc(o)}" aria-pressed="${st.budget===o}">${esc(o)}</button>`).join("");
+  const cfg=CFG[st.act],sb=$("#subBox");
+  sb.hidden=!cfg;
+  if(cfg){
+    sb.className="grp"+(fade?" fd":"");
+    sb.innerHTML=`<div class="sec">${esc(cfg.subTitle)}</div><div class="card"><div class="pills" id="pSub">${pills(cfg.subs,st.sub)}</div></div>`;
   }
-  $("#subBox").innerHTML=h;
-  if($("#txt")){$("#txt").value=st.txt;$("#txt").oninput=e=>{st.txt=e.target.value;st.sent=false;save();sentUI()}}
   if(pop){const b=[...document.querySelectorAll(".pill,.seg button")].find(x=>x.dataset.o===pop&&x.getAttribute("aria-pressed")==="true");if(b)b.classList.add("pop")}
   sentUI();
 }
+function renderField(fade){
+  const f=fieldInfo(),fb=$("#fieldBox");
+  fb.hidden=!f;
+  if(!f){fb.innerHTML="";return}
+  fb.className="grp"+(fade?" fd":"");
+  fb.innerHTML=`<div class="sec">${esc(f.label)}</div><input type="text" class="inp" id="txt" maxlength="80" placeholder="${esc(f.ph)}">`;
+  const i=$("#txt");i.value=st.txt;
+  i.oninput=e=>{st.txt=e.target.value;st.sent=false;save();sentUI()};
+}
 function summary(){
-  const f=fieldInfo(),parts=["hoy te apetece "+(st.act?st.act.toLowerCase()+(st.sub?" ("+st.sub.toLowerCase()+")":""):"lo que surja")];
-  if(f&&st.txt.trim())parts.push(f[2]+": "+st.txt.trim());
-  parts.push("gastar "+(st.budget?BUDT[st.budget]:"lo justo"));
-  let t="Adri ya lo sabe: "+parts.slice(0,-1).join(", ")+", "+parts[parts.length-1]+" y tu nivel de amor por Adri es "+st.love+"%.";
+  const f=fieldInfo(),txt=st.txt.trim();
+  let plan=st.act?st.act.toLowerCase():"lo que surja";
+  if(st.act&&st.sub)plan+=" ("+st.sub.toLowerCase()+")";
+  if(f&&txt)plan+=", "+f.short+": "+txt;
+  let t="Adri ya lo sabe: hoy te apetece "+plan+", gastar "+(st.budget?st.budget.toLowerCase():"lo justo")+" y tu nivel de amor por Adri es "+st.love+"%.";
   if(st.extra.trim())t+=" Extra: "+st.extra.trim();
   return t;
 }
 function sentUI(){$("#send").hidden=st.sent;$("#done").hidden=$("#again").hidden=!st.sent;$("#summary").textContent=summary()}
 function loveText(v){return v>90?"Nivel máximo, no cabe más":v>70?"Hoy estoy muy enamorada":v>45?"Te quiero un montón":v>20?"Te quiero, pero el café va primero":"Hoy necesito mimos extra"}
 function renderLove(){
-  const v=st.love;$("#love").value=v;$("#pct").textContent=v;$("#loveLabel").textContent=loveText(v);
-  let h=heart(20+v*.2,"#C2334D",`class="h" style="animation-duration:${(1.5-v*.011).toFixed(2)}s"`);
-  if(v>90)for(let i=0;i<6;i++)h+=`<span class="rise" style="animation-delay:${(i*.3).toFixed(1)}s">${heart(14,"#E8758A")}</span>`;
-  $("#hb").innerHTML=h;
+  const v=st.love,hs=Math.round(20+v*.2);
+  $("#love").value=v;$("#pct").textContent=v;$("#loveLabel").textContent=loveText(v);
+  $("#hb").innerHTML=heart("#C2334D",`width:${hs}px;height:${hs}px;animation:beat ${(1.5-v*.011).toFixed(2)}s ease-in-out infinite`);
+  const r=$("#risers"),max=v>90;
+  if(max&&r.hidden)r.innerHTML=[0,14,28,42,56,70].map((p,i)=>heart("#E8758A",`left:${p}%;animation-delay:${(i*.3).toFixed(1)}s`)).join("");
+  r.hidden=!max;
 }
 function pick(k,o){
   if(o==="Me da igual"){openModal();return}
-  if(k==="act"){const c=st.act!==o;st.act=o;if(c){st.sub=null;st.txt=""}st.sent=false;save();renderPlan(c,o);return}
-  if(k==="sub"){st.sub=o;if(st.act==="Plan en casa")st.txt="";st.sent=false;save();renderPlan(false,o);return}
+  if(k==="act"){const c=st.act!==o;st.act=o;if(c){st.sub=null;st.txt=""}st.sent=false;save();renderPlan(c,o);if(c)renderField(false);return}
+  if(k==="sub"){const c=st.sub!==o;st.sub=o;if(c)st.txt="";st.sent=false;save();renderPlan(false,o);if(c)renderField(true);return}
   st.budget=o;st.sent=false;save();renderPlan(false,o);
 }
 $("#plan").addEventListener("click",e=>{const b=e.target.closest("[data-o]");if(!b)return;
@@ -218,26 +286,28 @@ $("#plan").addEventListener("click",e=>{const b=e.target.closest("[data-o]");if(
 
 /* Pop-up y ruleta */
 function openModal(){
-  $("#dlg").innerHTML=CATFACE+'<p>Obviamente no vale decir me da igual listilla, elige</p><button id="ok">Vale, elijo</button><button class="sc" id="fate">…o que decida el destino</button>';
+  $("#dlg").innerHTML=CATFACE+'<p>Obviamente no vale decir me da igual listilla, elige</p><button class="ok" id="ok">Vale, elijo</button><button class="fate" id="fate">…o que decida el destino</button>';
   $("#modal").hidden=false;
   $("#ok").onclick=()=>{$("#modal").hidden=true};
-  $("#fate").onclick=roulette;
+  $("#fate").onclick=spin;
 }
-function roulette(){
-  $("#dlg").innerHTML=CATFACE+'<p>EL DESTINO DECIDE</p><div class="rl" id="rl"></div>';
-  const fin=POOL[Math.floor(Math.random()*POOL.length)];let i=0;
+function spin(){
+  $("#dlg").innerHTML=CATFACE+'<div class="lbl">EL DESTINO DECIDE</div><div class="rl" id="rl"></div>';
+  let i=0;
   (function step(){
-    if(i<12){$("#rl").textContent=POOL[Math.floor(Math.random()*POOL.length)];i++;setTimeout(step,70+14*i)}
-    else{$("#rl").textContent=fin;setTimeout(()=>{$("#modal").hidden=true;pick("act",fin)},900)}
+    if(i<12){$("#rl").textContent=ROULETTE[(i*3+1)%ROULETTE.length];i++;setTimeout(step,70+i*14)}
+    else{const f=ROULETTE[Math.floor(Math.random()*ROULETTE.length)];$("#rl").textContent=f;
+      setTimeout(()=>{$("#modal").hidden=true;pick("act",f)},900)}
   })();
 }
 
 /* Envío */
 function rain(){
-  if(reduce)return;const r=$("#rain");const cols=["#C2334D","#E8758A","#F4A6B4","#D6455D"];let h="";
-  for(let i=0;i<16;i++){const s=18+Math.random()*15;
-    h+=heart(s,cols[i%4],`style="left:${Math.random()*92}%;animation-duration:${(2.2+Math.random()*1.4).toFixed(2)}s;animation-delay:${(Math.random()*1.05).toFixed(2)}s"`)}
-  r.innerHTML=h;setTimeout(()=>{r.innerHTML=""},5200);
+  if(reduce)return;
+  const colors=["#C2334D","#E8758A","#F4A6B4","#D6455D"];let h="";
+  for(let i=0;i<16;i++){const size=18+((i*7)%16);
+    h+=heart("currentColor",`left:${((i*37)%92)+2}%;width:${size}px;height:${size}px;animation-delay:${((i%8)*.15).toFixed(2)}s;animation-duration:${(2.2+(i%5)*.35).toFixed(2)}s;color:${colors[i%4]}`)}
+  const r=$("#rain");r.innerHTML=h;setTimeout(()=>{r.innerHTML=""},5200);
 }
 $("#send").onclick=async()=>{
   const b=$("#send"),err=$("#err");err.hidden=true;
@@ -245,7 +315,7 @@ $("#send").onclick=async()=>{
   b.disabled=true;b.textContent="Enviando…";
   try{
     const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({act:st.act,sub:st.sub||"",detail:st.txt.trim(),budget:st.budget||"",love:st.love,extra:st.extra.trim()})});
+      body:JSON.stringify({act:st.act,sub:st.sub||"",detail:fieldInfo()?st.txt.trim():"",budget:st.budget||"",love:st.love,extra:st.extra.trim()})});
     if(!r.ok)throw 0;st.sent=true;save();rain();
   }catch(e){err.textContent="No se pudo enviar. Revisa la conexión y prueba otra vez.";err.hidden=false}
   b.disabled=false;b.textContent="Enviar a Adri";sentUI();
@@ -253,10 +323,10 @@ $("#send").onclick=async()=>{
 $("#again").onclick=()=>{st.sent=false;save();sentUI()};
 $("#love").addEventListener("input",e=>{st.love=+e.target.value;st.sent=false;save();renderLove();sentUI()});
 $("#extra").addEventListener("input",e=>{st.extra=e.target.value;st.sent=false;save();sentUI()});
-const show=p=>{$("#home").hidden=p;$("#plan").hidden=!p;if(p){const e=$("#plan");e.style.animation="none";e.offsetWidth;e.style.animation=""}scrollTo(0,0)};
-$("#go").onclick=()=>show(true);$("#back").onclick=()=>show(false);
-if(st.act&&!ACTS.includes(st.act))st.act=null;
-$("#extra").value=st.extra;home();renderPlan(false);renderLove();
+const show=p=>{$("#home").hidden=p;$("#plan").hidden=!p;if(p){const e=$("#plan");e.style.animation="none";e.offsetWidth;e.style.animation=""}else home();scrollTo(0,0)};
+$("#go").onclick=()=>show(true);
+$("#back").onclick=()=>show(false);
+$("#extra").value=st.extra;home();renderPlan(false);renderField(false);renderLove();
 if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 </script>
 </body>
