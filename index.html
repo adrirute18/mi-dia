@@ -13,26 +13,39 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" href="icons/icon-192.png">
 <style>
-:root{--bg:#F2F2F7;--card:#FFFFFF;--ink:#1C1C1E;--mute:#6C6C70;--chip:#F2F2F7;--seg:#E3E3E8;--segon:#FFFFFF;--sum:#1C1C1E;--sumink:#F2F2F7;--cat:#1C1C1E;--accent:#C2334D;--btn:#C2334D;color-scheme:light dark}
+:root{--bg:#F2F2F7;--card:#FFFFFF;--ink:#1C1C1E;--mute:#6C6C70;--chip:#F2F2F7;--seg:#E3E3E8;--segon:#FFFFFF;--sum:#1C1C1E;--sumink:#F2F2F7;--cat:#1C1C1E;--accent:#C2334D;--btn:#C2334D;color-scheme:light dark;
+--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-ios:cubic-bezier(0.32,0.72,0,1);--ease-pop:cubic-bezier(0.34,1.36,0.64,1)}
 @media (prefers-color-scheme: dark){:root{--bg:#000000;--card:#1C1C1E;--ink:#F2F2F7;--mute:#98989F;--chip:#2C2C2E;--seg:#1C1C1E;--segon:#636366;--sum:#2C2C2E;--sumink:#F2F2F7;--cat:#D1D1D6;--accent:#EF5A74}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg)}
 body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Helvetica Neue',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
-button,textarea,input{font-family:inherit}button{cursor:pointer}[hidden]{display:none!important}
+button,textarea,input{font-family:inherit}[hidden]{display:none!important}
+button{cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+/* Respuesta al pulsar: "scale" independiente para no pisar las animaciones de transform */
+.cta,.send,.ok,.pill{transition:scale 160ms var(--ease-out)}
+.cta:active,.send:active,.ok:active{scale:.97}
+.pill:active{scale:.95}
+.back,.again,.fate{transition:opacity 160ms ease}
+.back:active,.again:active,.fate:active{opacity:.5}
 textarea,input[type=text]{outline:none}
 textarea::placeholder,input::placeholder{color:#8E8E93}
 .screen{min-height:100vh;min-height:100dvh;margin:0 auto;display:flex;flex-direction:column}
 
 /* Portada */
-#home{max-width:390px;padding:calc(40px + env(safe-area-inset-top)) 22px calc(40px + env(safe-area-inset-bottom));justify-content:center;gap:22px}
+/* La portada ocupa justo la pantalla: la foto se adapta para que el botón se vea siempre sin scroll */
+#home{max-width:390px;height:100vh;height:100dvh;min-height:520px;padding:calc(16px + env(safe-area-inset-top)) 22px calc(16px + env(safe-area-inset-bottom));justify-content:center;gap:clamp(12px,2.6vh,22px)}
+#home.boot>*{animation:enter 600ms var(--ease-out) both}
+#home.boot>:nth-child(2){animation-delay:70ms}
+#home.boot>:nth-child(3){animation-delay:140ms}
+#home.in{animation:homeIn 320ms var(--ease-ios)}
 .head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .brand{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--mute)}
 #greet{margin:0;font-size:27px;font-weight:700;letter-spacing:-.02em}
 #phrase{margin:0;max-width:300px;font-size:15px;line-height:1.4;color:var(--mute)}
 .pillt{margin-top:4px;display:flex;align-items:center;gap:6px;background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--accent)}
 #anni{font-size:13px;color:var(--mute)}
-.photo{width:min(346px,100%);aspect-ratio:346/560;align-self:center;overflow:hidden;border-radius:32px;box-shadow:0 12px 32px rgba(194,51,77,.18);background:var(--seg)}
-.photo img{display:block;width:100%;height:100%;object-fit:cover;animation:zoom 14s ease-in-out infinite alternate}
+.photo{width:min(346px,100%);flex:1 1 0;min-height:150px;max-height:560px;align-self:center;overflow:hidden;border-radius:32px;box-shadow:0 12px 32px rgba(194,51,77,.18);background:var(--seg)}
+.photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 45%;animation:zoom 14s ease-in-out infinite alternate}
 .ctaw{position:relative;padding-top:72px}
 .ctaw .cat{position:absolute;right:22px;top:0;overflow:visible}
 .cta{width:100%;min-height:64px;border:none;border-radius:18px;background:var(--btn);color:#fff;font-size:19px;font-weight:700;padding:0 20px;box-shadow:0 8px 20px rgba(194,51,77,.32);animation:pulse 2.6s ease-in-out infinite}
@@ -41,28 +54,30 @@ textarea::placeholder,input::placeholder{color:#8E8E93}
 .eye{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.5s infinite}
 
 /* Plan de hoy */
-#plan{max-width:430px;padding:calc(20px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));gap:20px;animation:slideIn .35s ease-out}
+#plan{max-width:430px;padding:calc(20px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom));gap:20px;animation:slideIn 320ms var(--ease-ios)}
 .top{display:flex;flex-direction:column;gap:4px}
 .back{align-self:flex-start;min-height:44px;padding:0;border:none;background:transparent;color:var(--accent);font-size:17px;display:flex;align-items:center;gap:2px}
 h1{margin:0;font-size:34px;font-weight:700;letter-spacing:-.02em}
 .grp{display:flex;flex-direction:column;gap:8px}
-.fd{animation:fadeDown .3s ease-out}
+.fd{animation:fadeDown 260ms var(--ease-out)}
 .sec{padding:0 6px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--mute)}
 .card{background:var(--card);border-radius:18px;padding:12px}
 .pills{display:flex;flex-wrap:wrap;gap:8px}
-.pill{min-height:40px;padding:0 15px;border:none;border-radius:999px;background:var(--chip);color:var(--ink);font-size:15px;font-weight:500}
+.pill{min-height:40px;padding:0 15px;border:none;border-radius:999px;background:var(--chip);color:var(--ink);font-size:15px;font-weight:500;transition:scale 160ms var(--ease-out),background-color 200ms ease,color 200ms ease}
 .pill[aria-pressed=true]{background:#C2334D;color:#fff;font-weight:600}
-.pill.pop{animation:pop .28s ease-out}
 .inp{width:100%;min-height:50px;border:none;border-radius:18px;background:var(--card);padding:0 16px;font-size:16px;color:var(--ink)}
-.seg{display:flex;background:var(--seg);border-radius:10px;padding:2px;gap:2px}
-.seg button{flex:1;min-height:40px;border:none;border-radius:8px;background:transparent;font-size:14px;font-weight:500;color:var(--ink)}
-.seg button[aria-pressed=true]{background:var(--segon);box-shadow:0 1px 3px rgba(0,0,0,.2);font-weight:700}
+.seg{position:relative;display:flex;background:var(--seg);border-radius:10px;padding:2px;gap:2px}
+.seg button{position:relative;flex:1;min-height:40px;border:none;border-radius:8px;background:transparent;font-size:14px;font-weight:500;color:var(--ink)}
+.seg button[aria-pressed=true]{font-weight:700}
+/* Fondo del seleccionado: una sola pieza que se desliza entre opciones */
+.thumb{position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 10px) / 4);border-radius:8px;background:var(--segon);box-shadow:0 1px 3px rgba(0,0,0,.2);opacity:0;transition:transform 300ms var(--ease-ios),opacity 200ms ease}
 .love{position:relative;background:var(--card);border-radius:18px;padding:14px 16px 12px}
 .lt{display:flex;align-items:center;justify-content:space-between}
 .q{font-size:15px}
 .rt{display:flex;align-items:center;gap:6px}
 .hb{width:46px;height:46px;display:flex;align-items:center;justify-content:center}
-.pct{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-width:78px;text-align:right}
+.hb svg{animation:beat 1s ease-in-out infinite}
+.pct{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-width:78px;text-align:right;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;height:40px;accent-color:#C2334D;margin:0}
 .ends{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
 #loveLabel{margin-top:6px;font-size:15px;font-weight:500}
@@ -74,41 +89,57 @@ textarea{width:100%;border:none;border-radius:18px;background:var(--card);paddin
 .send{min-height:54px;border:none;border-radius:16px;background:var(--btn);color:#fff;font-size:17px;font-weight:700}
 .send:disabled{opacity:.6}
 .err{margin:0 6px;color:var(--accent);font-size:14px}
-.done{background:var(--sum);color:var(--sumink);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.45;animation:bounceIn .5s ease-out}
+.done{background:var(--sum);color:var(--sumink);border-radius:16px;padding:14px 16px;font-size:15px;line-height:1.45;animation:doneIn 450ms var(--ease-pop) both}
 .done b{display:block;font-size:18px;font-weight:700;margin-bottom:4px}
 .again{min-height:44px;border:none;border-radius:14px;background:transparent;color:var(--accent);font-size:16px;font-weight:600}
 
 /* Pop-up "Me da igual" */
-#modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10}
-.dlg{width:280px;background:var(--card);border-radius:18px;padding:18px 20px 16px;text-align:center;display:flex;flex-direction:column;gap:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);animation:bounceIn .35s ease-out}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:10;animation:fade 200ms ease both}
+.dlg{width:280px;background:var(--card);border-radius:18px;padding:18px 20px 16px;text-align:center;display:flex;flex-direction:column;gap:14px;box-shadow:0 16px 40px rgba(0,0,0,.3);animation:dlgIn 300ms var(--ease-pop) both}
+/* Salida más rápida que la entrada */
+#modal.out{animation:fadeOut 160ms ease both}
+#modal.out .dlg{animation:dlgOut 160ms ease both}
 .dlg .cat{align-self:center;overflow:visible;animation:wobble 2.4s ease-in-out infinite}
 .dlg p{margin:0;font-size:17px;font-weight:600;line-height:1.35}
 .dlg .ok{min-height:44px;border:none;border-radius:12px;background:var(--btn);color:#fff;font-size:17px;font-weight:700}
 .dlg .fate{min-height:40px;border:none;background:transparent;color:var(--accent);font-size:15px;font-weight:600}
 .dlg .lbl{font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--mute)}
-.dlg .rl{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-height:44px}
+.dlg .rl{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--accent);min-height:44px;overflow:hidden}
+.dlg .rl span{display:inline-block}
 
 /* Lluvia de corazones al enviar */
 #rain{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:20}
 #rain svg{position:absolute;top:0;animation-name:fall;animation-timing-function:ease-in;animation-fill-mode:both}
 
 @keyframes slideIn{from{transform:translateX(36px);opacity:0}to{transform:none;opacity:1}}
+@keyframes homeIn{from{transform:translateX(-24px);opacity:0}to{transform:none;opacity:1}}
+@keyframes enter{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+@keyframes dlgIn{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+@keyframes dlgOut{from{transform:none;opacity:1}to{transform:scale(.96);opacity:0}}
+@keyframes doneIn{from{transform:translateY(10px) scale(.96);opacity:0}to{transform:none;opacity:1}}
 @keyframes zoom{from{transform:scale(1)}to{transform:scale(1.09)}}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
-@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.12)}100%{transform:scale(1)}}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @keyframes tail{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(16deg)}}
 @keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
 @keyframes beat{0%,100%{transform:scale(1)}30%{transform:scale(1.22)}60%{transform:scale(0.96)}}
 @keyframes fall{0%{transform:translateY(-60px) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(1240px) rotate(40deg);opacity:0}}
-@keyframes bounceIn{0%{transform:scale(0.7);opacity:0}60%{transform:scale(1.06);opacity:1}100%{transform:scale(1)}}
 @keyframes rise{0%{transform:translateY(0) scale(0.6);opacity:0}20%{opacity:1}100%{transform:translateY(-48px) scale(1);opacity:0}}
 @keyframes wobble{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
-@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}#rain,#risers{display:none}}
+/* Movimiento reducido: fuera desplazamientos y escalas, pero se mantienen fundidos suaves */
+@media (prefers-reduced-motion: reduce){
+*{animation:none!important}
+#rain,#risers{display:none}
+#plan,#home.in,.fd,.done,#modal,.dlg{animation:fade 200ms ease both!important}
+#modal.out,#modal.out .dlg{animation:fadeOut 160ms ease both!important}
+button,.pill,.thumb{transition-property:opacity,background-color,color!important}
+button:active{scale:none!important}}
 </style>
 </head>
 <body>
-<div id="home" class="screen">
+<div id="home" class="screen boot">
  <div class="head">
   <div class="brand">BERTA &amp; ADRI</div>
   <h2 id="greet"></h2>
@@ -233,19 +264,30 @@ function home(){
 }
 
 /* Plan */
-const pills=(list,cur)=>list.map(o=>`<button type="button" class="pill" data-o="${esc(o)}" aria-pressed="${cur===o}">${esc(o)}</button>`).join("");
+const pills=list=>list.map(o=>`<button type="button" class="pill" data-o="${esc(o)}" aria-pressed="false">${esc(o)}</button>`).join("");
 const fieldInfo=()=>st.act&&st.sub?CFG[st.act].field(st.sub):null;
-function renderPlan(fade,pop){
-  $("#pActs").innerHTML=pills(ACTS,st.act);
-  $("#pBud").innerHTML=BUD.map(o=>`<button type="button" data-o="${esc(o)}" aria-pressed="${st.budget===o}">${esc(o)}</button>`).join("");
+// Los botones se crean una vez y solo cambia aria-pressed, para que las transiciones de color funcionen
+function renderSub(fade){
   const cfg=CFG[st.act],sb=$("#subBox");
   sb.hidden=!cfg;
-  if(cfg){
-    sb.className="grp"+(fade?" fd":"");
-    sb.innerHTML=`<div class="sec">${esc(cfg.subTitle)}</div><div class="card"><div class="pills" id="pSub">${pills(cfg.subs,st.sub)}</div></div>`;
-  }
-  if(pop){const b=[...document.querySelectorAll(".pill,.seg button")].find(x=>x.dataset.o===pop&&x.getAttribute("aria-pressed")==="true");if(b)b.classList.add("pop")}
-  sentUI();
+  if(!cfg){sb.innerHTML="";return}
+  sb.className="grp"+(fade?" fd":"");
+  sb.innerHTML=`<div class="sec">${esc(cfg.subTitle)}</div><div class="card"><div class="pills" id="pSub">${pills(cfg.subs)}</div></div>`;
+}
+const press=(sel,cur)=>document.querySelectorAll(sel+" [data-o]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.o===cur));
+let thumbOn=false;
+function moveThumb(){
+  const t=$("#thumb"),i=BUD.indexOf(st.budget);
+  if(i<0){t.style.opacity=0;thumbOn=false;return}
+  const tf=`translateX(calc(${i} * 100% + ${i*2}px))`;
+  if(!thumbOn){t.style.transition="none";t.style.transform=tf;t.offsetWidth;t.style.transition="";thumbOn=true}
+  else t.style.transform=tf;
+  t.style.opacity=1;
+}
+function syncPlan(){press("#pActs",st.act);press("#pSub",st.sub);press("#pBud",st.budget);moveThumb();sentUI()}
+function pop(el){
+  if(reduce||!el)return;
+  el.animate([{transform:"scale(1)"},{transform:"scale(1.06)",offset:.4},{transform:"scale(1)"}],{duration:260,easing:"cubic-bezier(0.23,1,0.32,1)"});
 }
 function renderField(fade){
   const f=fieldInfo(),fb=$("#fieldBox");
@@ -270,16 +312,19 @@ function loveText(v){return v>90?"Nivel máximo, no cabe más":v>70?"Hoy estoy m
 function renderLove(){
   const v=st.love,hs=Math.round(20+v*.2);
   $("#love").value=v;$("#pct").textContent=v;$("#loveLabel").textContent=loveText(v);
-  $("#hb").innerHTML=heart("#C2334D",`width:${hs}px;height:${hs}px;animation:beat ${(1.5-v*.011).toFixed(2)}s ease-in-out infinite`);
+  // Se reutiliza el mismo corazón: recrearlo en cada movimiento reiniciaba el latido
+  const hb=$("#hb svg").style;hb.width=hb.height=hs+"px";hb.animationDuration=(1.5-v*.011).toFixed(2)+"s";
   const r=$("#risers"),max=v>90;
   if(max&&r.hidden)r.innerHTML=[0,14,28,42,56,70].map((p,i)=>heart("#E8758A",`left:${p}%;animation-delay:${(i*.3).toFixed(1)}s`)).join("");
   r.hidden=!max;
 }
 function pick(k,o){
   if(o==="Me da igual"){openModal();return}
-  if(k==="act"){const c=st.act!==o;st.act=o;if(c){st.sub=null;st.txt=""}st.sent=false;save();renderPlan(c,o);if(c)renderField(false);return}
-  if(k==="sub"){const c=st.sub!==o;st.sub=o;if(c)st.txt="";st.sent=false;save();renderPlan(false,o);if(c)renderField(true);return}
-  st.budget=o;st.sent=false;save();renderPlan(false,o);
+  if(k==="act"){const c=st.act!==o;st.act=o;if(c){st.sub=null;st.txt="";renderSub(true);renderField(false)}}
+  else if(k==="sub"){const c=st.sub!==o;st.sub=o;if(c){st.txt="";renderField(true)}}
+  else st.budget=o;
+  st.sent=false;save();syncPlan();
+  if(k!=="bud")pop([...document.querySelectorAll(k==="act"?"#pActs [data-o]":"#pSub [data-o]")].find(b=>b.dataset.o===o));
 }
 $("#plan").addEventListener("click",e=>{const b=e.target.closest("[data-o]");if(!b)return;
   pick(b.closest("#pActs")?"act":b.closest("#pSub")?"sub":"bud",b.dataset.o)});
@@ -287,17 +332,25 @@ $("#plan").addEventListener("click",e=>{const b=e.target.closest("[data-o]");if(
 /* Pop-up y ruleta */
 function openModal(){
   $("#dlg").innerHTML=CATFACE+'<p>Obviamente no vale decir me da igual listilla, elige</p><button class="ok" id="ok">Vale, elijo</button><button class="fate" id="fate">…o que decida el destino</button>';
-  $("#modal").hidden=false;
-  $("#ok").onclick=()=>{$("#modal").hidden=true};
+  $("#modal").classList.remove("out");$("#modal").hidden=false;
+  $("#ok").onclick=()=>closeModal();
   $("#fate").onclick=spin;
 }
+function closeModal(after){
+  const m=$("#modal");m.classList.add("out");
+  setTimeout(()=>{m.hidden=true;m.classList.remove("out");if(after)after()},160);
+}
 function spin(){
-  $("#dlg").innerHTML=CATFACE+'<div class="lbl">EL DESTINO DECIDE</div><div class="rl" id="rl"></div>';
+  $("#dlg").innerHTML=CATFACE+'<div class="lbl">EL DESTINO DECIDE</div><div class="rl"><span id="rl"></span></div>';
+  const rl=$("#rl"),ease="cubic-bezier(0.23,1,0.32,1)";
+  const show=(t,last)=>{rl.textContent=t;if(reduce)return;
+    rl.animate(last?[{transform:"scale(.9)",opacity:.5},{transform:"scale(1.08)",offset:.5},{transform:"none",opacity:1}]
+                   :[{transform:"translateY(-40%)",opacity:0},{transform:"none",opacity:1}],{duration:last?360:90,easing:ease})};
   let i=0;
   (function step(){
-    if(i<12){$("#rl").textContent=ROULETTE[(i*3+1)%ROULETTE.length];i++;setTimeout(step,70+i*14)}
-    else{const f=ROULETTE[Math.floor(Math.random()*ROULETTE.length)];$("#rl").textContent=f;
-      setTimeout(()=>{$("#modal").hidden=true;pick("act",f)},900)}
+    if(i<12){show(ROULETTE[(i*3+1)%ROULETTE.length]);i++;setTimeout(step,70+i*14)}
+    else{const f=ROULETTE[Math.floor(Math.random()*ROULETTE.length)];show(f,true);
+      setTimeout(()=>closeModal(()=>pick("act",f)),900)}
   })();
 }
 
@@ -323,10 +376,17 @@ $("#send").onclick=async()=>{
 $("#again").onclick=()=>{st.sent=false;save();sentUI()};
 $("#love").addEventListener("input",e=>{st.love=+e.target.value;st.sent=false;save();renderLove();sentUI()});
 $("#extra").addEventListener("input",e=>{st.extra=e.target.value;st.sent=false;save();sentUI()});
-const show=p=>{$("#home").hidden=p;$("#plan").hidden=!p;if(p){const e=$("#plan");e.style.animation="none";e.offsetWidth;e.style.animation=""}else home();scrollTo(0,0)};
+// Al mostrar una pantalla oculta su animación de entrada vuelve a empezar sola
+const show=p=>{const h=$("#home");h.classList.remove("boot");h.hidden=p;$("#plan").hidden=!p;
+  if(!p){home();h.classList.add("in")}scrollTo(0,0)};
 $("#go").onclick=()=>show(true);
 $("#back").onclick=()=>show(false);
-$("#extra").value=st.extra;home();renderPlan(false);renderField(false);renderLove();
+// iOS Safari solo aplica :active si hay algún listener táctil
+document.addEventListener("touchstart",()=>{},{passive:true});
+$("#pActs").innerHTML=pills(ACTS);
+$("#pBud").innerHTML='<span class="thumb" id="thumb" aria-hidden="true"></span>'+BUD.map(o=>`<button type="button" data-o="${esc(o)}" aria-pressed="false">${esc(o)}</button>`).join("");
+$("#hb").innerHTML=heart("#C2334D","");
+$("#extra").value=st.extra;home();renderSub(false);renderField(false);syncPlan();renderLove();
 if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 </script>
 </body>
